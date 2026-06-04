@@ -1,117 +1,490 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RestoFlow AI</title>
-
-    <style>
-        body{
-            background:#0f172a;
-            color:white;
-            font-family:Arial, Helvetica, sans-serif;
-            margin:0;
-            padding:0;
+<html class="dark" lang="es">
+                    <p class="text-xs font-bold truncate">Chef Executive</p>
+                    <p class="text-[10px] text-text-dim uppercase tracking-widest">Premium Plan</p>
+                </div>
+                <button class="text-text-dim hover:text-error transition-colors">
+                <a href="#cliente" class="text-text-dim hover:text-error transition-colors flex items-center justify-center" title="Cerrar Sesión">
+                    <span class="material-symbols-outlined text-lg">logout</span>
+                </button>
+                </a>
+            </div>
+        </div>
+    </aside>
+            </section>
+        </div>
+        <!-- Portal Cliente -->
+        <section id="view-client-portal" class="hidden flex-1 flex flex-col items-center justify-center p-6 md:p-12 bg-dark">
+            <div class="w-full max-w-xl bg-surface border border-outline rounded-3xl p-8 md:p-10 shadow-2xl glass space-y-8">
+                <!-- Header -->
+                <div class="flex flex-col items-center text-center gap-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-pending rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-white text-3xl">restaurant</span>
+                    </div>
+                    <h1 class="font-headline font-extrabold text-2xl tracking-tight text-white">ReservaMaster</h1>
+                    <p class="text-xs text-text-dim uppercase tracking-widest font-semibold">Solicitar Reserva</p>
+                </div>
+                <!-- Formulario -->
+                <form id="client-booking-form" onsubmit="window.submitClientReservation(event)" class="space-y-6">
+                    <!-- Bloque: Nombre -->
+                    <div class="space-y-2">
+                        <label for="client-name" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Nombre Completo *</label>
+                        <input type="text" id="client-name" placeholder="Tu nombre y apellidos"
+                            class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-text-dim/40 text-white">
+                        <p id="error-client-name" class="text-xs text-error hidden mt-1">El nombre es obligatorio.</p>
+                    </div>
+                    <!-- Bloque: Teléfono -->
+                    <div class="space-y-2">
+                        <label for="client-phone" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Teléfono de Contacto *</label>
+                        <input type="tel" id="client-phone" placeholder="Ej: 600 123 456"
+                            class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-text-dim/40 text-white">
+                        <p id="error-client-phone" class="text-xs text-error hidden mt-1">El teléfono es obligatorio.</p>
+                    </div>
+                    <!-- Bloque: Fecha y Hora -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                        <div class="space-y-2">
+                            <label for="client-date" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Fecha *</label>
+                            <input type="date" id="client-date"
+                                class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all text-white">
+                            <p id="error-client-date" class="text-xs text-error hidden mt-1">La fecha es obligatoria.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="client-time" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Hora *</label>
+                            <input type="time" id="client-time"
+                                class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all text-white">
+                            <p id="error-client-time" class="text-xs text-error hidden mt-1">La hora es obligatoria.</p>
+                        </div>
+                    </div>
+                    <!-- Bloque: PAX (Personas) -->
+                    <div class="space-y-2">
+                        <label for="client-pax" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Número de Personas (PAX) *</label>
+                        <input type="number" id="client-pax" value="2" min="1" max="500"
+                            class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all text-white">
+                        <p id="error-client-pax" class="text-xs text-error hidden mt-1">Debes especificar al menos 1 persona.</p>
+                    </div>
+                    <!-- Bloque: Observaciones -->
+                    <div class="space-y-2">
+                        <label for="client-requirements" class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Requisitos especiales / Observaciones</label>
+                        <textarea id="client-requirements" rows="3" placeholder="Ej: Alergias, trona para bebé, mesa exterior, etc."
+                            class="w-full bg-surface-light border border-outline rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-y text-white placeholder:text-text-dim/40"></textarea>
+                    </div>
+                    <!-- Bloque: RGPD -->
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-outline">
+                            <input type="checkbox" id="client-rgpd"
+                                class="mt-1 rounded bg-surface-light border-outline text-primary focus:ring-primary focus:ring-offset-0 focus:ring-1">
+                            <label for="client-rgpd" class="text-xs text-text-dim leading-relaxed cursor-pointer select-none">
+                                Acepto que mis datos sean tratados únicamente para gestionar mi solicitud de reserva conforme al RGPD. *
+                            </label>
+                        </div>
+                        <p id="error-client-rgpd" class="text-xs text-error hidden mt-1">Debes aceptar las condiciones de privacidad.</p>
+                    </div>
+                    <!-- Error de envío -->
+                    <p id="error-client-submit" class="text-xs text-error hidden text-center mt-2 font-semibold">No se pudo enviar la solicitud. Inténtalo de nuevo.</p>
+                    <!-- Botón Enviar -->
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-primary-hover text-white px-6 py-4 rounded-xl text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">send</span>
+                        Enviar Solicitud de Reserva
+                    </button>
+                </form>
+                <!-- Pantalla de Éxito (oculta por defecto) -->
+                <div id="client-success-view" class="hidden flex flex-col items-center text-center space-y-6 py-4">
+                    <div class="w-16 h-16 bg-success/15 border border-success/35 text-success rounded-full flex items-center justify-center shadow-lg shadow-success/10 animate-bounce">
+                        <span class="material-symbols-outlined text-4xl font-bold">check_circle</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-white">¡Solicitud Enviada!</h3>
+                        <p class="text-sm text-text-dim leading-relaxed max-w-sm">
+                            Tu solicitud de reserva ha sido recibida. El restaurante contactará contigo por teléfono o WhatsApp para confirmarla.
+                        </p>
+                    </div>
+                    <button onclick="window.resetClientPortal()"
+                        class="px-6 py-2.5 bg-surface-light hover:bg-white/5 border border-outline rounded-xl text-xs font-bold transition-all text-white active:scale-95">
+                        Realizar otra solicitud
+                    </button>
+                </div>
+                <!-- Footer del Portal de Cliente -->
+                <div class="border-t border-outline/30 pt-6 flex justify-between items-center text-[10px] text-text-dim/60">
+                    <span>&copy; 2026 ReservaMaster.</span>
+                    <a href="#admin" class="hover:text-primary hover:underline font-bold transition-colors">Acceso personal</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Modal: Nueva Reserva -->
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-text-dim">Estado de la Reserva</label>
+                    <select id="res-status"
+                        class="w-full bg-surface-light border-outline rounded-xl px-4 py-3 text-sm focus:ring-primary focus:border-primary transition-all appearance-none">
+                        <option value="pendiente">Pendiente de validación</option>
+                        <option value="pendiente_validacion">Pendiente de validación (Cliente)</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmada">Confirmada</option>
+                        <option value="incompleta">Incompleta</option>
+                        <option value="cancelada">Cancelada</option>
+                    Tus datos se usarán solo para gestionar la reserva y no se compartirán con terceros.
+                </p>
+                <!-- Bloque 9: Botones Guardar Reserva / Cancelar -->
+                <!-- Bloque 9: Botones Guardar Reserva / Cancelar / WhatsApp -->
+                <div class="relative sm:sticky sm:bottom-0 bg-surface pt-4 pb-6 border-t border-outline flex gap-4 mt-6 shrink-0 z-10 -mx-6 px-6 md:-mx-8 md:px-8">
+                    <button type="button" id="btn-whatsapp" onclick="window.contactWhatsApp()"
+                        class="hidden bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3 rounded-xl text-sm font-bold shadow-lg shadow-green-500/20 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.739-1.446L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436.002 9.858-4.417 9.86-9.86.002-2.638-1.024-5.117-2.884-6.979C16.572 1.904 14.09 .88 11.453.88 6.012.88 1.59 5.299 1.588 10.74c-.001 1.64.5 3.254 1.45 4.855l-.952 3.478 3.56-.934zM17.91 14.8c-.273-.137-1.62-.8-1.87-.892-.252-.093-.437-.137-.62.137-.183.275-.707.892-.867 1.077-.16.183-.32.206-.593.07-2.64-1.323-4.48-3.033-5.22-4.305-.197-.336-.02-.518.148-.686.15-.15.33-.39.497-.584.166-.195.22-.324.33-.54.112-.218.056-.41-.027-.584-.083-.173-.62-1.5-.85-2.05-.224-.54-.452-.466-.62-.474-.167-.008-.36-.01-.554-.01-.194 0-.51.073-.777.365-.268.293-1.024 1.002-1.024 2.445 0 1.443 1.049 2.836 1.195 3.03.145.196 2.067 3.16 5.006 4.43.7.302 1.246.482 1.67.618.703.224 1.344.193 1.85.117.564-.085 1.62-.663 1.85-1.302.23-.64.23-1.186.162-1.302-.07-.116-.27-.206-.54-.342z"/>
+                        </svg>
+                        <span>WhatsApp</span>
+                    </button>
+                    <button type="button" onclick="toggleModal(false)"
+                        class="flex-1 px-6 py-3 rounded-xl border border-outline text-sm font-bold hover:bg-white/5 transition-all">Cancelar</button>
+                    <button type="submit" id="btn-submit-reservation"
+                overlay.classList.add('flex');
+                setTimeout(() => content.classList.replace('scale-95', 'scale-100'), 10);
+                // Show/hide status container depending on mode
+                // Keep status container visible for both creation and editing
+                const statusContainer = document.getElementById('res-status-container');
+                if (statusContainer) {
+                    statusContainer.classList.remove('hidden');
+                }
+                // Show/hide WhatsApp button depending on edit state
+                const waBtn = document.getElementById('btn-whatsapp');
+                if (waBtn) {
+                    if (editingId) {
+                        statusContainer.classList.remove('hidden');
+                        const res = reservations.find(r => r.id === editingId);
+                        if (res && res.phone) {
+                            waBtn.classList.remove('hidden');
+                        } else {
+                            waBtn.classList.add('hidden');
+                        }
+                    } else {
+                        statusContainer.classList.add('hidden');
+                        waBtn.classList.add('hidden');
+                    }
+                }
+            }
+        };
+        // --- WhatsApp helper and contact logic ---
+        function getWhatsAppLink(res) {
+            let phone = res.phone || '';
+            let cleanPhone = phone.replace(/\D/g, ''); // Keep only numbers
+            
+            // Spanish mobile/landline numbers have 9 digits. If length is 9, prepend '34'
+            if (cleanPhone.length === 9 && (cleanPhone.startsWith('6') || cleanPhone.startsWith('7') || cleanPhone.startsWith('8') || cleanPhone.startsWith('9'))) {
+                cleanPhone = '34' + cleanPhone;
+            } else if (cleanPhone.startsWith('0034')) {
+                cleanPhone = '34' + cleanPhone.substring(4);
+            }
+            if (cleanPhone && !cleanPhone.startsWith('34') && cleanPhone.length <= 10) {
+                cleanPhone = '34' + cleanPhone;
+            }
+            
+            const pax = res.paxExpected || res.pax || 2;
+            const dateFormatted = formatJustDate(res.date);
+            const message = `Hola ${res.name || ''}, hemos recibido tu solicitud de reserva para el día ${dateFormatted} a las ${res.time || ''} para ${pax} personas. Para finalizar la reserva, por favor confirma respondiendo a este mensaje.`;
+            
+            return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
         }
-
-        .container{
-            max-width:900px;
-            margin:auto;
-            padding:60px 20px;
+        window.contactWhatsApp = function () {
+            if (!editingId) return;
+            const res = reservations.find(r => r.id === editingId);
+            if (!res) return;
+            const link = getWhatsAppLink(res);
+            window.open(link, '_blank');
+        };
+        window.openWhatsApp = function (id, event) {
+            if (event) event.stopPropagation();
+            const res = reservations.find(r => r.id === id);
+            if (!res) return;
+            const link = getWhatsAppLink(res);
+            window.open(link, '_blank');
+        };
+        // --- Client Portal logic & Routing ---
+        window.initRoleRoute = function () {
+            const isAdmin = location.hash === '#admin';
+            const aside = document.querySelector('aside');
+            const main = document.querySelector('main');
+            const header = document.querySelector('header');
+            const clientPortalSection = document.getElementById('view-client-portal');
+            const adminViewsContainer = document.querySelector('main > div.p-8');
+            if (isAdmin) {
+                if (aside) aside.classList.remove('hidden');
+                if (main) main.classList.add('ml-64');
+                if (header) header.classList.remove('hidden');
+                if (clientPortalSection) clientPortalSection.classList.add('hidden');
+                if (adminViewsContainer) adminViewsContainer.classList.remove('hidden');
+                
+                // Sync data and state when switching to admin panel
+                loadApp();
+            } else {
+                if (aside) aside.classList.add('hidden');
+                if (main) main.classList.remove('ml-64');
+                if (header) header.classList.add('hidden');
+                if (clientPortalSection) clientPortalSection.classList.remove('hidden');
+                if (adminViewsContainer) adminViewsContainer.classList.add('hidden');
+                
+                window.resetClientPortal();
+            }
+        };
+        window.resetClientPortal = function () {
+            const form = document.getElementById('client-booking-form');
+            if (form) {
+                form.reset();
+                form.classList.remove('hidden');
+            }
+            
+            // Clear any error states and messages
+            const errorIds = ['name', 'phone', 'date', 'time', 'pax', 'rgpd'];
+            errorIds.forEach(id => {
+                const errEl = document.getElementById(`error-client-${id}`);
+                if (errEl) errEl.classList.add('hidden');
+                const inputEl = document.getElementById(`client-${id}`);
+                if (inputEl) inputEl.classList.remove('border-error', 'ring-1', 'ring-error');
+            });
+            
+            // Hide submit error text
+            const submitError = document.getElementById('error-client-submit');
+            if (submitError) submitError.classList.add('hidden');
+            // Hide success screen
+            const successView = document.getElementById('client-success-view');
+            if (successView) successView.classList.add('hidden');
+            
+            // Populate today date as minimum
+            const clientDateInput = document.getElementById('client-date');
+            if (clientDateInput) {
+                clientDateInput.min = getTodayStr();
+            }
+        };
+        window.submitClientReservation = async function (event) {
+            event.preventDefault();
+            
+            const nameEl = document.getElementById('client-name');
+            const phoneEl = document.getElementById('client-phone');
+            const dateEl = document.getElementById('client-date');
+            const timeEl = document.getElementById('client-time');
+            const paxEl = document.getElementById('client-pax');
+            const rgpdEl = document.getElementById('client-rgpd');
+            const reqsEl = document.getElementById('client-requirements');
+            
+            let hasError = false;
+            
+            // Clear errors first
+            const errorIds = ['name', 'phone', 'date', 'time', 'pax', 'rgpd'];
+            errorIds.forEach(id => {
+                const errEl = document.getElementById(`error-client-${id}`);
+                if (errEl) errEl.classList.add('hidden');
+                const inputEl = document.getElementById(`client-${id}`);
+                if (inputEl) inputEl.classList.remove('border-error', 'ring-1', 'ring-error');
+            });
+            
+            const submitError = document.getElementById('error-client-submit');
+            if (submitError) submitError.classList.add('hidden');
+            
+            // 1. Validation Name
+            if (!nameEl.value.trim()) {
+                document.getElementById('error-client-name').classList.remove('hidden');
+                nameEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            }
+            
+            // 2. Validation Phone
+            if (!phoneEl.value.trim()) {
+                document.getElementById('error-client-phone').classList.remove('hidden');
+                phoneEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            }
+            
+            // 3. Validation Date
+            const selectedDate = dateEl.value;
+            const todayStr = getTodayStr();
+            if (!selectedDate) {
+                const errDate = document.getElementById('error-client-date');
+                errDate.innerText = "La fecha es obligatoria.";
+                errDate.classList.remove('hidden');
+                dateEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            } else if (selectedDate < todayStr) {
+                const errDate = document.getElementById('error-client-date');
+                errDate.innerText = "La fecha seleccionada no puede ser anterior a hoy.";
+                errDate.classList.remove('hidden');
+                dateEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            }
+            
+            // 4. Validation Time
+            if (!timeEl.value) {
+                document.getElementById('error-client-time').classList.remove('hidden');
+                timeEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            }
+            
+            // 5. Validation PAX
+            const paxValue = parseInt(paxEl.value);
+            if (isNaN(paxValue) || paxValue < 1 || paxValue > 500) {
+                document.getElementById('error-client-pax').classList.remove('hidden');
+                paxEl.classList.add('border-error', 'ring-1', 'ring-error');
+                hasError = true;
+            }
+            
+            // 6. Validation RGPD
+            if (!rgpdEl.checked) {
+                document.getElementById('error-client-rgpd').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (hasError) {
+                const firstErrInput = ['client-name', 'client-phone', 'client-date', 'client-time', 'client-pax'].find(id => {
+                    const el = document.getElementById(id);
+                    return el && el.classList.contains('border-error');
+                });
+                if (firstErrInput) {
+                    document.getElementById(firstErrInput).focus();
+                }
+                return;
+            }
+            
+            // Structure data matching minimum required schema for clients
+            const data = {
+                name: nameEl.value.trim(),
+                phone: phoneEl.value.trim(),
+                date: selectedDate,
+                time: timeEl.value,
+                pax: paxValue,
+                paxExpected: paxValue,
+                paxConfirmed: "",
+                status: "pendiente_validacion",
+                type: "normal",
+                eventType: "normal",
+                priority: "normal",
+                location: "pendiente",
+                tableNumber: "",
+                specialRequirements: reqsEl.value.trim(),
+                notes: "",
+                rgpdAccepted: true,
+                source: "cliente"
+            };
+            
+            try {
+                // Save in backend/storage
+                await DataService.create(data);
+                
+                // Fetch latest and update app state
+                reservations = await DataService.getAll();
+                syncAppState();
+                // Display success screen
+                document.getElementById('client-booking-form').classList.add('hidden');
+                document.getElementById('client-success-view').classList.remove('hidden');
+            } catch (err) {
+                console.error("Error creating public reservation:", err);
+                if (submitError) {
+                    submitError.classList.remove('hidden');
+                } else {
+                    alert("No se pudo enviar la solicitud. Inténtalo de nuevo.");
+                }
+            }
+        };
+        window.switchView = function (viewId) {
+            currentView = viewId;
+            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+                    data.createdAt = original ? original.createdAt : new Date().toISOString();
+                    await DataService.update(editingId, data);
+                } else {
+                    data.status = 'pendiente'; // Force new reservations to Pending
+                    data.status = document.getElementById('res-status').value || 'pendiente_validacion';
+                    data.createdAt = new Date().toISOString();
+                    await DataService.create(data);
+                 }
+                window.toggleModal(false);
+            const styles = {
+                confirmada: 'bg-success/10 text-success border-success/20',
+                pendiente: 'bg-warning/10 text-warning border-warning/20',
+                pendiente_validacion: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+                incompleta: 'bg-primary/10 text-primary border-primary/20',
+                cancelada: 'bg-error/10 text-error border-error/20',
+                no_show: 'bg-pending/10 text-pending border-pending/20'
+            };
+            const labels = {
+                pendiente: 'Pendiente de validación',
+                pendiente: 'Pendiente',
+                pendiente_validacion: 'Pte. Validación',
+                confirmada: 'Confirmada',
+                incompleta: 'Incompleta',
+                cancelada: 'Cancelada',
+            const styles = {
+                confirmada: 'bg-success/10 text-success border-success/20 focus:ring-success/50',
+                pendiente: 'bg-warning/10 text-warning border-warning/20 focus:ring-warning/50',
+                pendiente_validacion: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20 focus:ring-indigo-500/50',
+                incompleta: 'bg-primary/10 text-primary border-primary/20 focus:ring-primary/50',
+                cancelada: 'bg-error/10 text-error border-error/20 focus:ring-error/50',
+                no_show: 'bg-pending/10 text-pending border-pending/20 focus:ring-pending/50'
+            };
+            const currentStyle = styles[status] || styles.incompleta;
+            
+            return `
+                <select onchange="window.updateReservationStatus('${res.id}', this.value)" onclick="event.stopPropagation()"
+                    class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase border ${currentStyle} bg-surface cursor-pointer focus:outline-none focus:ring-1 pr-6 text-center transition-all">
+                    <option value="pendiente_validacion" ${status === 'pendiente_validacion' ? 'selected' : ''} class="bg-surface text-indigo-400 font-bold">Pte. Validación</option>
+                    <option value="pendiente" ${status === 'pendiente' ? 'selected' : ''} class="bg-surface text-warning font-bold">Pendiente</option>
+                    <option value="confirmada" ${status === 'confirmada' ? 'selected' : ''} class="bg-surface text-success font-bold">Confirmada</option>
+                    <option value="incompleta" ${status === 'incompleta' ? 'selected' : ''} class="bg-surface text-primary font-bold">Incompleta</option>
+                } else if (currentFilter.startsWith('event_')) {
+                    const filterType = currentFilter.replace('event_', '');
+                    matchesFilter = (res.eventType || 'normal') === filterType;
+                } else if (currentFilter === 'pendiente') {
+                    matchesFilter = res.status === 'pendiente' || res.status === 'pendiente_validacion';
+                } else {
+                    matchesFilter = res.status === currentFilter;
+                }
+                    </td>
+                    <td class="px-8 py-5 text-sm font-medium text-text-dim">${res.date === getTodayStr() ? 'Hoy' : res.date}, ${res.time}</td>
+                    <td class="px-8 py-5"><span class="bg-surface-light px-2 py-1 rounded-lg border border-outline inline-block">${formatPaxDisplay(res)}</span></td>
+                    <td class="px-8 py-5">${getStatusSelect(res)}</td>
+                    <td class="px-8 py-5">
+                        <div class="flex items-center gap-3">
+                            ${getStatusSelect(res)}
+                            ${res.phone ? `
+                            <button onclick="window.openWhatsApp('${res.id}', event)" class="text-[#25D366] hover:text-green-400 transition-colors p-1.5 hover:bg-green-500/10 rounded-lg flex items-center justify-center shrink-0" title="Contactar por WhatsApp">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.739-1.446L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436.002 9.858-4.417 9.86-9.86.002-2.638-1.024-5.117-2.884-6.979C16.572 1.904 14.09 .88 11.453.88 6.012.88 1.59 5.299 1.588 10.74c-.001 1.64.5 3.254 1.45 4.855l-.952 3.478 3.56-.934zM17.91 14.8c-.273-.137-1.62-.8-1.87-.892-.252-.093-.437-.137-.62.137-.183.275-.707.892-.867 1.077-.16.183-.32.206-.593.07-2.64-1.323-4.48-3.033-5.22-4.305-.197-.336-.02-.518.148-.686.15-.15.33-.39.497-.584.166-.195.22-.324.33-.54.112-.218.056-.41-.027-.584-.083-.173-.62-1.5-.85-2.05-.224-.54-.452-.466-.62-.474-.167-.008-.36-.01-.554-.01-.194 0-.51.073-.777.365-.268.293-1.024 1.002-1.024 2.445 0 1.443 1.049 2.836 1.195 3.03.145.196 2.067 3.16 5.006 4.43.7.302 1.246.482 1.67.618.703.224 1.344.193 1.85.117.564-.085 1.62-.663 1.85-1.302.23-.64.23-1.186.162-1.302-.07-.116-.27-.206-.54-.342z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
         }
-
-        h1{
-            font-size:48px;
-            color:#38bdf8;
+                    <td class="px-8 py-5">${getStatusSelect(res)}</td>
+                    <td class="px-8 py-5 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            ${res.phone ? `
+                            <button onclick="window.openWhatsApp('${res.id}', event)" class="text-[#25D366] hover:text-green-400 transition-colors p-2 hover:bg-green-500/10 rounded-lg flex items-center justify-center shrink-0" title="Contactar por WhatsApp">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.739-1.446L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436.002 9.858-4.417 9.86-9.86.002-2.638-1.024-5.117-2.884-6.979C16.572 1.904 14.09 .88 11.453.88 6.012.88 1.59 5.299 1.588 10.74c-.001 1.64.5 3.254 1.45 4.855l-.952 3.478 3.56-.934zM17.91 14.8c-.273-.137-1.62-.8-1.87-.892-.252-.093-.437-.137-.62.137-.183.275-.707.892-.867 1.077-.16.183-.32.206-.593.07-2.64-1.323-4.48-3.033-5.22-4.305-.197-.336-.02-.518.148-.686.15-.15.33-.39.497-.584.166-.195.22-.324.33-.54.112-.218.056-.41-.027-.584-.083-.173-.62-1.5-.85-2.05-.224-.54-.452-.466-.62-.474-.167-.008-.36-.01-.554-.01-.194 0-.51.073-.777.365-.268.293-1.024 1.002-1.024 2.445 0 1.443 1.049 2.836 1.195 3.03.145.196 2.067 3.16 5.006 4.43.7.302 1.246.482 1.67.618.703.224 1.344.193 1.85.117.564-.085 1.62-.663 1.85-1.302.23-.64.23-1.186.162-1.302-.07-.116-.27-.206-.54-.342z"/>
+                                </svg>
+                            </button>
+                            ` : ''}
+                            <button onclick="window.editReservation('${res.id}')" class="text-text-dim hover:text-white transition-colors p-2 hover:bg-white/10 rounded-lg" title="Editar">
+                                <span class="material-symbols-outlined text-lg">edit_note</span>
+                            </button>
+            const stats = {
+                today: activeReservations.filter(r => r.date === todayStr).length,
+                pending: reservations.filter(r => r.status === 'pendiente').length,
+                pending: reservations.filter(r => r.status === 'pendiente' || r.status === 'pendiente_validacion').length,
+                large: activeReservations.filter(r => r.pax >= 8).length,
+                special: activeReservations.filter(r => r.eventType && r.eventType !== 'normal').length,
+                confirmedEvents: activeReservations.filter(r => r.eventType && r.eventType !== 'normal' && (r.depositReceived === true || r.paymentStatus !== 'pendiente')).length,
+                    }
+                });
+            }
+            // Bind routing and initialize role view
+            window.addEventListener('hashchange', window.initRoleRoute);
+            window.initRoleRoute();
         }
-
-        h2{
-            color:#facc15;
-            margin-top:40px;
-        }
-
-        .card{
-            background:#1e293b;
-            padding:25px;
-            border-radius:18px;
-            margin-top:20px;
-        }
-
-        ul{
-            line-height:1.8;
-        }
-
-        .badge{
-            display:inline-block;
-            background:#22c55e;
-            color:white;
-            padding:8px 14px;
-            border-radius:12px;
-            margin-top:10px;
-        }
-
-        footer{
-            margin-top:60px;
-            opacity:0.7;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>RestoFlow AI</h1>
-
-    <p>
-        MVP de gestión inteligente de reservas para restaurantes tradicionales.
-    </p>
-
-    <div class="badge">
-        Proyecto desarrollado con Google Antigravity
-    </div>
-
-    <div class="card">
-
-        <h2>Problema detectado</h2>
-
-        <p>
-            Muchos restaurantes pierden clientes debido a llamadas no atendidas,
-            reservas mal registradas y falta de organización durante el servicio.
-        </p>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Objetivo del MVP</h2>
-
-        <p>
-            Centralizar las reservas, reducir errores humanos y evitar la pérdida
-            de clientes mediante automatización inteligente.
-        </p>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Herramientas utilizadas</h2>
-
-        <ul>
-            <li>Google Antigravity</li>
-            <li>Google Sheets</li>
-            <li>Google Forms</li>
-            <li>Make / N8N</li>
-            <li>ChatGPT</li>
-        </ul>
-
-    </div>
-
-    <footer>
-        Proyecto académico — Curso Antigravity + IA
-    </footer>
-
-</div>
-
+        // Boot the app
+        window.onload = initApp;
+    </script>
 </body>
 </html>
+<!-- CRM OFICIAL TEST -->
+                    alert("Hemos recibido tu solicitud de reserva. Nuestro equipo revisará la disponibilidad y te confirmará lo antes posible.");
+                    showToast("Reserva creada con éxito", "success")
